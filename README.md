@@ -6,7 +6,7 @@ This is the repository for TalDate frontend
 
 ### Install Node.js and npm:
 
-Make sure Node.js and npm are installed on the machine.
+Make sure the latest version of Node.js and npm are installed on the machine.
 
 ### Install Project Dependencies:
 
