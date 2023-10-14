@@ -4,6 +4,11 @@ This is the repository for TalDate frontend
 
 # Setup
 
+### Add these extensions/plugins to your IDE
+
+1. Tailwind Intellisense
+2. Prettier (Optional)
+
 ### Install Node.js and npm:
 
 Make sure the latest LTS version of Node.js and npm are installed on the machine.
