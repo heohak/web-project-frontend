@@ -11,7 +11,7 @@ const LoginPage: React.FC = () => {
         <div className="flex h-screen w-screen place-items-center place-content-center">
             <LoginContainer>
                 <p className="text-fuchsia-600 h-fit font-extrabold font-montserrat text-2xl">
-                    Log in to TalDate
+                    Log in to TalDate 💖
                 </p>
 
                 <div className="mt-6 flex flex-col">
