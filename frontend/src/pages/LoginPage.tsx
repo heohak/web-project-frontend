@@ -2,11 +2,16 @@ import LoginContainer from '@/components/LoginContainer';
 import Button from '@/components/Button';
 import LinkButton from '@/components/LinkButton';
 
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import * as React from "react";
+import {useState} from "react";
+import { useNavigate } from "react-router-dom";
+
+
+
 
 const LoginPage: React.FC = () => {
     const navigate = useNavigate();
+
 
     const [formData, setFormData] = useState({
         email: '',
