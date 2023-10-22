@@ -1,15 +1,17 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 
 interface ButtonProps {
-  to: string;
   children: React.ReactNode;
-  style?: React.CSSProperties;
   className?: string;
+  type?: "button" | "submit";
 }
 
-const Button: React.FC<ButtonProps> = ({ to, children, style, className }) => {
-  return <Link to={to} style={style} className={className}>{children}</Link>;
+const Button: React.FC<ButtonProps> = ({ children, className, type = "button" }) => {
+  return (
+    <button className={`bg-fuchsia-400 text-white px-4 py-2 rounded ${className}`} type={type}>
+      {children}
+    </button>
+  );
 };
 
 export default Button;
