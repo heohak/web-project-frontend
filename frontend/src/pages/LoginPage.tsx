@@ -1,50 +1,82 @@
 import LoginContainer from '@/components/LoginContainer';
 import Button from '@/components/Button';
-import React from 'react';
+import LinkButton from '@/components/LinkButton';
+
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const LoginPage: React.FC = () => {
+    const navigate = useNavigate();
+
+    const [formData, setFormData] = useState({
+        email: '',
+        password: ''
+    });
+
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const { name, value } = e.target;
+        setFormData({
+            ...formData,
+            [name]: value
+        });
+    }
+
+    const handleSubmit = (e: React.FormEvent) => {
+        e.preventDefault();
+
+        console.log('Form submitted:', formData);
+        
+        navigate('/main');
+    }
+
     return (
         <>
-        <div className="fixed top-10 right-10">
-            <Button to="/register" className="bg-fuchsia-300">Sign Up</Button>
-        </div>
-        <div className="flex h-screen w-screen place-items-center place-content-center">
-            <LoginContainer>
-                <p className="text-fuchsia-600 h-fit font-extrabold font-montserrat text-2xl">
-                    Log in to TalDate 💖
-                </p>
+            <div className="fixed top-10 right-10">
+                <LinkButton to="/register" className="bg-fuchsia-300">Sign Up</LinkButton>
+            </div>
+            <div className="flex h-screen w-screen place-items-center place-content-center">
+                <LoginContainer>
+                    <p className="text-fuchsia-600 h-fit font-extrabold font-montserrat text-2xl">
+                        Log in to TalDate 💖
+                    </p>
 
-                <div className="mt-6 flex flex-col">
-                    <label htmlFor="emailInput" className="mb-2 text-fuchsia-600">
-                        Email
-                    </label>
-                    <input
-                        type="email"
-                        id="emailInput"
-                        name="email"
-                        className="w-full border border-fuchsia-600 p-2 outline-fuchsia-700"
-                        required
-                    />
-                </div>
+                    <form onSubmit={handleSubmit}>
+                        <div className="mt-6 flex flex-col">
+                            <label htmlFor="emailInput" className="mb-2 text-fuchsia-600">
+                                Email
+                            </label>
+                            <input
+                                type="email"
+                                id="emailInput"
+                                name="email"
+                                value={formData.email}
+                                onChange={handleChange}
+                                className="w-full border border-fuchsia-600 p-2 outline-fuchsia-700"
+                                required
+                            />
+                        </div>
 
-                <div className="mt-6 flex flex-col">
-                    <label htmlFor="passwordInput" className="mb-2 text-fuchsia-600">
-                        Password
-                    </label>
-                    <input
-                        type="password"
-                        id="passwordInput"
-                        name="password"
-                        className="w-full border border-fuchsia-600 p-2 outline-fuchsia-700"
-                        required
-                    />
-                </div>
+                        <div className="mt-6 flex flex-col">
+                            <label htmlFor="passwordInput" className="mb-2 text-fuchsia-600">
+                                Password
+                            </label>
+                            <input
+                                type="password"
+                                id="passwordInput"
+                                name="password"
+                                value={formData.password}
+                                onChange={handleChange}
+                                className="w-full border border-fuchsia-600 p-2 outline-fuchsia-700"
+                                required
+                            />
+                        </div>
 
-                <Button to="/main" className="mt-10 bg-fuchsia-300 w-max">
-                    Log In
-                </Button>
-            </LoginContainer>
-        </div>
+                        <Button type="submit" className="mt-10 bg-fuchsia-300 w-max">
+                            Log In
+                        </Button>
+                    </form>
+                </LoginContainer>
+            </div>
         </>
     )
 }
