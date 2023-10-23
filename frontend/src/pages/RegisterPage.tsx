@@ -1,4 +1,4 @@
-import LoginContainer from '@/components/LoginContainer';
+import RegisterContainer from '@/components/RegisterContainer';
 import Button from '@/components/Button';
 import LinkButton from '@/components/LinkButton';
 
@@ -40,9 +40,9 @@ const RegisterPage: React.FC = () => {
                 <LinkButton to="/" className="bg-fuchsia-300">Log In</LinkButton>
             </div>
             <div className="flex h-screen w-screen place-items-center place-content-center">
-                <LoginContainer>
+                <RegisterContainer>
                     <p className="text-fuchsia-600 h-fit font-extrabold font-montserrat text-2xl">
-                        Sign up for TalDate 💖
+                        Sign up for TalDate
                     </p>
 
                     <form onSubmit={handleSubmit}>
@@ -160,7 +160,7 @@ const RegisterPage: React.FC = () => {
                             Sign Up
                         </Button>
                     </form>
-                </LoginContainer>
+                </RegisterContainer>
             </div>
         </>
     )
