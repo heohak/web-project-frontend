@@ -36,10 +36,10 @@ const RegisterPage: React.FC = () => {
 
     return (
         <>
-            <div className="fixed top-10 right-10">
+            <div className="absolute top-10 right-10">
                 <LinkButton to="/" className="bg-fuchsia-300">Log In</LinkButton>
             </div>
-            <div className="flex h-screen w-screen place-items-center place-content-center">
+            <div className="flex flex-col min-h-screen items-center justify-center">
                 <RegisterContainer>
                     <p className="text-fuchsia-600 h-fit font-extrabold font-montserrat text-2xl">
                         Sign up for TalDate

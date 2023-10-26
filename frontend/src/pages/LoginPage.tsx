@@ -36,10 +36,10 @@ const LoginPage: React.FC = () => {
 
     return (
         <>
-            <div className="fixed top-10 right-10">
+            <div className="absolute top-10 right-10">
                 <LinkButton to="/register" className="bg-fuchsia-300">Sign Up</LinkButton>
             </div>
-            <div className="flex h-screen w-screen place-items-center place-content-center">
+            <div className="flex flex-col min-h-screen items-center justify-center">
                 <LoginContainer>
                     <p className="text-fuchsia-600 h-fit font-extrabold font-montserrat text-2xl">
                         Log in to TalDate
