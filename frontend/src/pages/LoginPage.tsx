@@ -2,11 +2,16 @@ import LoginContainer from '@/components/LoginContainer';
 import Button from '@/components/Button';
 import LinkButton from '@/components/LinkButton';
 
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import * as React from "react";
+import {useState} from "react";
+import { useNavigate } from "react-router-dom";
+
+
+
 
 const LoginPage: React.FC = () => {
     const navigate = useNavigate();
+
 
     const [formData, setFormData] = useState({
         email: '',
@@ -31,13 +36,13 @@ const LoginPage: React.FC = () => {
 
     return (
         <>
-            <div className="fixed top-10 right-10">
+            <div className="absolute top-10 right-10">
                 <LinkButton to="/register" className="bg-fuchsia-300">Sign Up</LinkButton>
             </div>
-            <div className="flex h-screen w-screen place-items-center place-content-center">
+            <div className="flex flex-col min-h-screen items-center justify-center">
                 <LoginContainer>
                     <p className="text-fuchsia-600 h-fit font-extrabold font-montserrat text-2xl">
-                        Log in to TalDate 💖
+                        Log in to TalDate
                     </p>
 
                     <form onSubmit={handleSubmit}>
