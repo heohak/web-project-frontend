@@ -1,9 +1,10 @@
-import RegisterContainer from '@/components/RegisterContainer';
+import LoginContainer from '@/components/FormContainer';
 import Button from '@/components/Button';
 import LinkButton from '@/components/LinkButton';
 
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+
 
 const RegisterPage: React.FC = () => {
     const navigate = useNavigate();
@@ -40,7 +41,7 @@ const RegisterPage: React.FC = () => {
                 <LinkButton to="/" className="bg-fuchsia-300">Log In</LinkButton>
             </div>
             <div className="flex flex-col min-h-screen items-center justify-center">
-                <RegisterContainer>
+                <LoginContainer>
                     <p className="text-fuchsia-600 h-fit font-extrabold font-montserrat text-2xl">
                         Sign up for TalDate
                     </p>
@@ -160,7 +161,7 @@ const RegisterPage: React.FC = () => {
                             Sign Up
                         </Button>
                     </form>
-                </RegisterContainer>
+                </LoginContainer>
             </div>
         </>
     )
