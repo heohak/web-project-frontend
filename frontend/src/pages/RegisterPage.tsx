@@ -1,4 +1,4 @@
-import LoginContainer from '@/components/LoginContainer';
+import LoginContainer from '@/components/FormContainer';
 import Button from '@/components/Button';
 import LinkButton from '@/components/LinkButton';
 
