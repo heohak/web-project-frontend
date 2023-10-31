@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import FormContainer from "@/components/FormContainer.tsx";
 import Button from "@/components/Button.tsx";
 import {useNavigate} from "react-router-dom";
+import '../styles/upload-button.css'
 
 const ProfileEditPage: React.FC = () => {
     const navigate = useNavigate();
@@ -21,11 +22,16 @@ const ProfileEditPage: React.FC = () => {
             [name]: value
         });
 
+        // Update profile picture preview (without actually uploading the file)
         if (e.target.id === "profilePicture") {
-            const img = document.querySelector("#profilePicturePreview");
-            if (img) {
-                // @ts-ignore
-                img.src = URL.createObjectURL(e.target.files[0]);
+            const img = document.querySelector("#profilePicturePreview") as HTMLImageElement;
+            const fileInput = e.target as HTMLInputElement;
+
+            if (img && fileInput.files && fileInput.files.length > 0) {
+                URL.revokeObjectURL(formData.profilePicture);
+                const blobURL: string = URL.createObjectURL(fileInput.files[0]);
+                img.src = blobURL;
+                setFormData((prevData) => ({...prevData, profilePicture: blobURL}));
             }
         }
     }
@@ -34,13 +40,21 @@ const ProfileEditPage: React.FC = () => {
         e.preventDefault();
 
         console.log('Form submitted:', formData);
-        // Update bio ...
+        // Update bio if changed...
 
-        // If profile picture changed, upload file ...
+        // Upload new profile picture if changed...
+        // if (...) {
+        // const reader = new FileReader();
+        // reader.addEventListener("loadend", () => {
+        //   // reader.result contains the contents of blob as a typed array
+        //     console.log(reader.result)
+        //     add reader.result to body
+        // });
+        // reader.readAsArrayBuffer(blob);
+
 
         navigate('/main');
     }
-
 
 
     return (
@@ -52,15 +66,15 @@ const ProfileEditPage: React.FC = () => {
 
                 <form onSubmit={handleSubmit}>
                     <div className="mt-6 flex flex-col">
-                        <label htmlFor="genderPreferenceSelect" className="mb-2 text-fuchsia-600">
+                        <label htmlFor="genderPreference" className="mb-2 text-fuchsia-600">
                             I want to meet
                         </label>
                         <select
-                            id="genderPreferenceSelect"
+                            id="genderPreference"
                             name="genderPreference"
-                            value={formData.genderPreferenceIsMale ? "male" : "female"}
+                            defaultValue={formData.genderPreferenceIsMale ? "male" : "female"}
                             onChange={handleChange}
-                            className="w-full border border-fuchsia-600 p-2 outline-fuchsia-700"
+                            className="w-full p-2 border border-fuchsia-600"
                             required
                         >
                             <option value="male">men</option>
@@ -78,7 +92,7 @@ const ProfileEditPage: React.FC = () => {
                             defaultValue={formData.bio}
                             onChange={handleChange}
                             maxLength={140}
-                            className="p-3 min-h-fit max-h-44 resize-none">
+                            className="w-full p-2 min-h-fit max-h-44 resize-none border border-fuchsia-600">
             </textarea>
                         <div className="mb-1 text-fuchsia-400 text-xs">(max 140 characters)</div>
                     </div>
@@ -88,13 +102,16 @@ const ProfileEditPage: React.FC = () => {
                             Profile picture
                         </label>
                         <img id="profilePicturePreview"
-                             className="aspect-square w-44 mb-2 rounded-full"/>
-                        <input
-                            type="file"
-                            id="profilePicture"
-                            name="profilePicture"
-                            onChange={handleChange}
-                        />
+                             src={formData.profilePicture}
+                             className="aspect-square w-44 mb-2 rounded-full border border-fuchsia-600"/>
+                        <div className="input_container">
+                            <input
+                                type="file"
+                                id="profilePicture"
+                                name="profilePicture"
+                                onChange={handleChange}
+                            />
+                        </div>
                     </div>
                     <Button type="submit" className="mt-10 bg-fuchsia-300 w-max">
                         Save changes
