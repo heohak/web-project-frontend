@@ -2,6 +2,9 @@ name: Basic CI
 
 on:
   push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
 
 jobs:
   build:
@@ -15,8 +18,16 @@ jobs:
         with:
           node-version: '18'
 
+      - name: Change to frontend directory
+        run: cd frontend
+
       - name: Install dependencies
         run: npm install
+        working-directory: frontend
+
+      - name: Build project (if you have a build script)
+        run: npm run build
+        working-directory: frontend
 
       - name: Check out code
         run: echo "The code has been checked out and dependencies have been installed successfully"
