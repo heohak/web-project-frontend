@@ -27,13 +27,46 @@ const RegisterPage: React.FC = () => {
         });
     }
 
-    const handleSubmit = (e: React.FormEvent) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
 
-        console.log('Form submitted:', formData);
+        // Frontend validation can go here (passwords match, email format, etc.)
 
-        navigate('/main');
-    }
+        // Assuming you are validating and possibly transforming the gender value in your form state
+        const isGenderMale = formData.gender === 'male';
+
+        try {
+            const response = await fetch('http://localhost:8080/api/auth/register', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    firstName: formData.firstName,
+                    lastName: formData.lastName,
+                    email: formData.email,
+                    password: formData.password,
+                    dateOfBirth: new Date(formData.dateOfBirth).toISOString().split('T')[0], // Formatting to match SQL Date
+                    isGenderMale: isGenderMale
+                }),
+            });
+
+            const data = await response.json();
+
+            if (response.ok) {
+                // Registration successful
+                console.log('Registration successful', data);
+                navigate('/main'); // Navigate to main or login page
+            } else {
+                // Handle server-side validation errors
+                // You can extract detailed error information from response if your server provides it
+                console.error('Registration failed', data);
+            }
+        } catch (error) {
+            console.error('Network error:', error);
+        }
+    };
+
 
     return (
         <>
