@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import FormContainer from "@/components/FormContainer.tsx";
 import Button from "@/components/Button.tsx";
 import {useNavigate} from "react-router-dom";
@@ -6,6 +6,10 @@ import '../styles/upload-button.css'
 
 const ProfileEditPage: React.FC = () => {
     const navigate = useNavigate();
+
+    useEffect(() => {
+        localStorage.setItem('userId', '18'); // Assume '1' is the userId for testing
+    }, []);
 
     const [formData, setFormData] = useState({
         // These will be fetched from the current profile (or extracted from JWT)
@@ -36,25 +40,46 @@ const ProfileEditPage: React.FC = () => {
         }
     }
 
-    const handleSubmit = (e: React.FormEvent) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
 
-        console.log('Form submitted:', formData);
-        // Update bio if changed...
+        // Retrieve the fixed userId from localStorage for testing
+        const userId = localStorage.getItem('userId');
 
-        // Upload new profile picture if changed...
-        // if (...) {
-        // const reader = new FileReader();
-        // reader.addEventListener("loadend", () => {
-        //   // reader.result contains the contents of blob as a typed array
-        //     console.log(reader.result)
-        //     add reader.result to body
-        // });
-        // reader.readAsArrayBuffer(blob);
+        const profileData = {
+            userId, // Assuming your backend expects a string, otherwise parse it as needed
+            genderPreference: formData.genderPreferenceIsMale ? "male" : "female",
+            bio: formData.bio,
+        };
+
+        try {
+            const response = await fetch(`http://localhost:8080/api/profile`, { // Update this URL to your actual API endpoint
+                method: 'POST', // Use PUT for full updates or PATCH for partial updates
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(profileData),
+            });
+
+            if (response.ok) {
+                // If the update was successful, you can redirect or display a success message
+                alert('Profile updated successfully.');
+                navigate('/main'); // Redirect to the profile page or other route
+            } else {
+                // If there was an error, you can display an error message
+                const errorData = await response.json();
+                alert(`Failed to update profile: ${errorData.error}`);
+            }
+        } catch (error) {
+            // If there was a network error or other issue, display an error message
+            console.error('Error submitting form:', error);
+            alert('An error occurred while updating the profile. Please try again later.');
+        }
+    };
 
 
-        navigate('/main');
-    }
+
+
 
 
     return (

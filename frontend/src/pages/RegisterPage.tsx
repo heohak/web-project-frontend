@@ -30,8 +30,6 @@ const RegisterPage: React.FC = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        // Other code...
-
         try {
             const response = await fetch('http://localhost:8080/api/auth/register', {
                 method: 'POST',
