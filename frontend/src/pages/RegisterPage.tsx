@@ -69,7 +69,7 @@ const RegisterPage: React.FC = () => {
     return (
         <>
             <div className="absolute top-10 right-10">
-                <LinkButton to="/" className="bg-fuchsia-300">Log In</LinkButton>
+                <LinkButton to="/login" className="bg-fuchsia-300">Log In</LinkButton>
             </div>
             <div className="flex flex-col min-h-screen items-center justify-center">
                 <LoginContainer>
