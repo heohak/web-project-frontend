@@ -59,8 +59,6 @@ const LoginPage: React.FC = () => {
     }
 
 
-
-
     return (
         <>
             <div className="absolute top-10 right-10">
