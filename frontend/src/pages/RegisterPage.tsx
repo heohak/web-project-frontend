@@ -49,7 +49,7 @@ const RegisterPage: React.FC = () => {
             // If there's no content, the JSON parsing is skipped
             if (response.ok) {
                 console.log('Registration successful');
-                navigate('/');
+                navigate('/login');
             } else {
                 // Handle server-side validation errors
                 const error = await response.json();
