@@ -50,7 +50,7 @@ const ProfileEditPage: React.FC = () => {
 
         console.log(formData)
         try {
-            const response = await fetch(`http://localhost:8080/api/profile`, { // Update this URL to your actual API endpoint
+            const response = await fetch(`/api/profile`, { // Update this URL to your actual API endpoint
                 method: 'PUT', // Use PUT for full updates or PATCH for partial updates
                 headers: {
                     'Content-Type': 'application/json',
