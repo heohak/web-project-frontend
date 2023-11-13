@@ -40,7 +40,7 @@ const ProfileEditPage: React.FC = () => {
         }
     }
 
-    const handleSubmit = async (e) => {
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
 
         // Retrieve the fixed userId from localStorage for testing
