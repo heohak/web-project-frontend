@@ -27,18 +27,49 @@ const RegisterPage: React.FC = () => {
         });
     }
 
-    const handleSubmit = (e: React.FormEvent) => {
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
 
-        console.log('Form submitted:', formData);
+        try {
+            const response = await fetch('http://localhost:8080/api/auth/register', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    firstName: formData.firstName,
+                    lastName: formData.lastName,
+                    email: formData.email,
+                    password: formData.password,
+                    dateOfBirth: new Date(formData.dateOfBirth).toISOString().split('T')[0],
+                    isGenderMale: formData.gender === 'male'
+                }),
+            });
 
-        navigate('/main');
-    }
+            // If there's no content, the JSON parsing is skipped
+            if (response.ok) {
+                console.log('Registration successful');
+                navigate('/login');
+            } else {
+                // Handle server-side validation errors
+                const error = await response.json();
+                if (error.error) {
+                    alert(error.error);
+                }
+            }
+        } catch (error) {
+            console.error('Network error:', error);
+        }
+    };
+
+
+
+
 
     return (
         <>
             <div className="absolute top-10 right-10">
-                <LinkButton to="/" className="bg-fuchsia-300">Log In</LinkButton>
+                <LinkButton to="/login" className="bg-fuchsia-300">Log In</LinkButton>
             </div>
             <div className="flex flex-col min-h-screen items-center justify-center">
                 <LoginContainer>

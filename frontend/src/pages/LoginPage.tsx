@@ -25,13 +25,39 @@ const LoginPage: React.FC = () => {
         });
     }
 
-    const handleSubmit = (e: React.FormEvent) => {
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
 
-        console.log('Form submitted:', formData);
-        
-        navigate('/main');
+        try {
+            const response = await fetch('http://localhost:8080/api/auth/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    email: formData.email,
+                    password: formData.password,
+                }),
+            });
+
+            if (response.ok) {
+                console.log("login successful");
+                navigate('/profile/edit');
+            } else {
+                // If the login fails, parse the error message and show it in an alert
+                const errorResponse = await response.json();
+                if (errorResponse.error) {
+                    alert(errorResponse.error);
+                } else {
+                    alert('An unknown error occurred. Please try again.');
+                }
+            }
+        } catch (error) {
+            console.error('Login error:', error);
+            alert('There was a network error. Please try again.');
+        }
     }
+
 
     return (
         <>
