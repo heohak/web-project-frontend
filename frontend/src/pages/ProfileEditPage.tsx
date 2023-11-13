@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, { useState } from 'react';
 import FormContainer from "@/components/FormContainer.tsx";
 import Button from "@/components/Button.tsx";
 import {useNavigate} from "react-router-dom";
