@@ -110,7 +110,7 @@ const ProfileEditPage: React.FC = () => {
                             onChange={handleChange}
                             maxLength={140}
                             className="w-full p-2 min-h-fit max-h-44 resize-none border border-fuchsia-600">
-            </textarea>
+                        </textarea>
                         <div className="mb-1 text-fuchsia-400 text-xs">(max 140 characters)</div>
                     </div>
 
