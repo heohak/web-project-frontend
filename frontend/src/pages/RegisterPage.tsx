@@ -5,6 +5,7 @@ import LinkButton from '@/components/LinkButton';
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
+import '@/styles/upload-button.css';
 
 const RegisterPage: React.FC = () => {
     const navigate = useNavigate();
