@@ -6,6 +6,8 @@ import * as React from "react";
 import {useState} from "react";
 import { useNavigate } from "react-router-dom";
 
+import '@/styles/scrollbar.css';
+
 
 
 
