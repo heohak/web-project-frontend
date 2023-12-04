@@ -3,12 +3,10 @@ import Button from '@/components/Button';
 import LinkButton from '@/components/LinkButton';
 
 import * as React from "react";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import { useNavigate } from "react-router-dom";
 
 import '@/styles/scrollbar.css';
-
-
 
 
 const LoginPage: React.FC = () => {
@@ -18,6 +16,22 @@ const LoginPage: React.FC = () => {
         email: '',
         password: ''
     });
+
+    const [kanyeQuote, setKanyeQuote] = useState('');
+
+    const fetchKanyeQuote = async () => {
+        try {
+            const response = await fetch('/api/quote');
+            const data = await response.json();
+            setKanyeQuote(data.quote);
+        } catch (error) {
+            console.error('Error fetching Kanye quote:', error);
+        }
+    };
+
+    useEffect(() => {
+        fetchKanyeQuote();
+    }, []);
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
@@ -48,8 +62,8 @@ const LoginPage: React.FC = () => {
             } else {
                 // If the login fails, parse the error message and show it in an alert
                 const errorResponse = await response.json();
-                if (errorResponse.error) {
-                    alert(errorResponse.error);
+                if (errorResponse.message) {
+                    alert(errorResponse.message);
                 } else {
                     alert('An unknown error occurred. Please try again.');
                 }
@@ -71,6 +85,14 @@ const LoginPage: React.FC = () => {
                     <p className="text-fuchsia-600 h-fit font-extrabold font-montserrat text-2xl">
                         Log in to TalDate
                     </p>
+
+                    {kanyeQuote && (
+                        <div className="max-h-24 overflow-y-auto my-4">
+                            <p className="text-center text-fuchsia-500 italic">
+                                "{kanyeQuote}"
+                            </p>
+                        </div>
+                    )}
 
                     <form onSubmit={handleSubmit}>
                         <div className="mt-6 flex flex-col">
