@@ -48,8 +48,8 @@ const LoginPage: React.FC = () => {
             } else {
                 // If the login fails, parse the error message and show it in an alert
                 const errorResponse = await response.json();
-                if (errorResponse.error) {
-                    alert(errorResponse.error);
+                if (errorResponse.message) {
+                    alert(errorResponse.message);
                 } else {
                     alert('An unknown error occurred. Please try again.');
                 }
