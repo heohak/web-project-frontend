@@ -21,7 +21,7 @@ const LoginPage: React.FC = () => {
 
     const fetchKanyeQuote = async () => {
         try {
-            const response = await fetch('http://localhost:8080/quote');
+            const response = await fetch('/api/quote');
             const data = await response.json();
             setKanyeQuote(data.quote);
         } catch (error) {
@@ -86,14 +86,13 @@ const LoginPage: React.FC = () => {
                         Log in to TalDate
                     </p>
 
-                    {/* Display Kanye West Quote */}
                     {kanyeQuote && (
-                        <p className="text-center text-fuchsia-500 italic my-4">
-                            "{kanyeQuote}"
-                        </p>
+                        <div className="max-h-24 overflow-y-auto my-4">
+                            <p className="text-center text-fuchsia-500 italic">
+                                "{kanyeQuote}"
+                            </p>
+                        </div>
                     )}
-
-
 
                     <form onSubmit={handleSubmit}>
                         <div className="mt-6 flex flex-col">
