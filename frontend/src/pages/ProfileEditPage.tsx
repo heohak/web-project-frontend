@@ -96,8 +96,8 @@ const ProfileEditPage: React.FC = () => {
                             className="w-full p-2 border border-fuchsia-600"
                             required
                         >
-                            <option value="male">men</option>
-                            <option value="female">women</option>
+                            <option value="male">Men</option>
+                            <option value="female">Women</option>
                         </select>
                     </div>
 
