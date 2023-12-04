@@ -8,9 +8,6 @@ import { useNavigate } from "react-router-dom";
 
 import '@/styles/scrollbar.css';
 
-
-
-
 const LoginPage: React.FC = () => {
     const navigate = useNavigate();
 
@@ -44,12 +41,16 @@ const LoginPage: React.FC = () => {
 
             if (response.ok) {
                 console.log("login successful");
-                navigate('/profile/edit');
+                const token = await response.json();
+                if (token) {
+                    localStorage.setItem("token", token.token);
+                    navigate('/profile/edit');
+                }
             } else {
                 // If the login fails, parse the error message and show it in an alert
-                const errorResponse = await response.json();
-                if (errorResponse.message) {
-                    alert(errorResponse.message);
+                const error = await response.json();
+                if (error.message) {
+                    alert(error.message);
                 } else {
                     alert('An unknown error occurred. Please try again.');
                 }
