@@ -14,17 +14,29 @@ const SwipeContainer: React.FC<SwipeContainerProps> = ({}) => {
 
     const fetchUserDetails = async () => {
         try {
-            const response = await fetch(`/api/profile/random`);
-            const accountData = await response.json();
-
-            setSwipeContainerData({
-                name: accountData.name,
-                age: accountData.age,
-                bio: accountData.bio,
-                picture: accountData.picture,
+            const response = await fetch(`/api/profile/random`, {
+                headers: {
+                    'Authorization': 'Bearer ' + localStorage.getItem("token")
+                },
             });
+    
+            if (response.ok) {
+                const accountData = await response.json();
+    
+                setSwipeContainerData({
+                    name: accountData.name,
+                    age: accountData.age,
+                    bio: accountData.bio,
+                    picture: accountData.picture,
+                });
+            } else {
+                // If there was an error, you can handle it accordingly
+                const errorData = await response.json();
+                console.error(`Failed to fetch user details: ${errorData.error}`);
+            }
         } catch (error) {
-            console.error('Error fetching message details:', error);
+            // If there was a network error or other issue, display an error message
+            console.error('Error fetching user details:', error);
         }
     };
 
