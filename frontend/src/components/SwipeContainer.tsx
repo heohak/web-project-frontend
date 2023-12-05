@@ -18,9 +18,9 @@ const SwipeContainer: React.FC<SwipeContainerProps> = ({}) => {
             const accountData = await response.json();
 
             setSwipeContainerData({
-                name: accountData.sender,
+                name: accountData.name,
                 age: accountData.age,
-                bio: accountData.content,
+                bio: accountData.bio,
                 picture: accountData.picture,
             });
         } catch (error) {

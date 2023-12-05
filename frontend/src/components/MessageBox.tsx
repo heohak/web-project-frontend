@@ -17,14 +17,14 @@ const MessageBox: React.FC<MessageBoxProps> = ({ accountId }) => {
         const fetchMatchDetails = async () => {
             try {
                 // TODO: Implement fetching the match details using accountId
-                const response = await fetch(`.../api/matches/${accountId}`);
+                const response = await fetch(`/api/matches/${accountId}`);
                 const matchData = await response.json();
 
                 // TODO: Implement fetching the last message sent in the match
                 const messageId = matchData.lastMessageSent;
 
                 // Fetch message details using messageId
-                const messageResponse = await fetch(`.../api/messages/${messageId}`);
+                const messageResponse = await fetch(`/api/messages/${messageId}`);
                 const messageDetails = await messageResponse.json();
 
                 const truncatedContent = messageDetails.content.slice(0, 40) + (messageDetails.content.length > 40 ? '...' : '');
