@@ -58,12 +58,16 @@ const LoginPage: React.FC = () => {
 
             if (response.ok) {
                 console.log("login successful");
-                navigate('/profile/edit');
+                const token = await response.json();
+                if (token) {
+                    localStorage.setItem("token", token.token);
+                    navigate('/profile/edit');
+                }
             } else {
                 // If the login fails, parse the error message and show it in an alert
-                const errorResponse = await response.json();
-                if (errorResponse.message) {
-                    alert(errorResponse.message);
+                const error = await response.json();
+                if (error.message) {
+                    alert(error.message);
                 } else {
                     alert('An unknown error occurred. Please try again.');
                 }
@@ -88,7 +92,7 @@ const LoginPage: React.FC = () => {
 
                     {kanyeQuote && (
                         <div className="max-h-24 overflow-y-auto my-4">
-                            <p className="text-center text-fuchsia-500 italic">
+                            <p className="text-center text-fuchsia-500 italic px-1">
                                 "{kanyeQuote}"
                             </p>
                         </div>

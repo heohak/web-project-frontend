@@ -52,10 +52,11 @@ const ProfileEditPage: React.FC = () => {
 
         console.log(formData)
         try {
-            const response = await fetch(`/api/profile`, { // Update this URL to your actual API endpoint
-                method: 'PUT', // Use PUT for full updates or PATCH for partial updates
+            const response = await fetch(`/api/profile`, {
+                method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
+                    'Authorization': 'Bearer ' + localStorage.getItem("token")
                 },
                 body: JSON.stringify(formData),
             });
@@ -96,8 +97,8 @@ const ProfileEditPage: React.FC = () => {
                             className="w-full p-2 border border-fuchsia-600"
                             required
                         >
-                            <option value="male">men</option>
-                            <option value="female">women</option>
+                            <option value="male">Men</option>
+                            <option value="female">Women</option>
                         </select>
                     </div>
 
