@@ -92,7 +92,7 @@ const LoginPage: React.FC = () => {
 
                     {kanyeQuote && (
                         <div className="max-h-24 overflow-y-auto my-4">
-                            <p className="text-center text-fuchsia-500 italic">
+                            <p className="text-center text-fuchsia-500 italic px-1">
                                 "{kanyeQuote}"
                             </p>
                         </div>
