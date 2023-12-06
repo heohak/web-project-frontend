@@ -1,10 +1,37 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import FormContainer from "@/components/FormContainer.tsx";
 import Button from "@/components/Button.tsx";
 
 const SettingsPage: React.FC = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+
+  useEffect(() => {
+    // Fetch user details when the component mounts
+    fetchUserDetails();
+  }, []);
+
+  const fetchUserDetails = async () => {
+    try {
+      const response = await fetch('/api/user', {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          // Add any other necessary headers (e.g., authentication token)
+        },
+      });
+
+      if (response.ok) {
+        const userData = await response.json();
+        setEmail(userData.email);
+        // You can also fetch and display other user details here if needed
+      } else {
+        console.error('Failed to fetch user details');
+      }
+    } catch (error) {
+      console.error('Error fetching user details:', error);
+    }
+  };
 
   const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(e.target.value);
@@ -14,21 +41,72 @@ const SettingsPage: React.FC = () => {
     setPassword(e.target.value);
   };
 
-  const handleEmailSubmit = (e: React.FormEvent) => {
+  const handleEmailSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Add logic to update email
-    console.log('Email submitted:', email);
+
+    try {
+      const response = await fetch('/api/user', {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ' + localStorage.getItem("token")
+        },
+        body: JSON.stringify({ email }),
+      });
+
+      if (response.ok) {
+        console.log('Email updated successfully');
+      } else {
+        console.error('Failed to update email');
+      }
+    } catch (error) {
+      console.error('Error updating email:', error);
+    }
   };
 
-  const handlePasswordSubmit = (e: React.FormEvent) => {
+  const handlePasswordSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Add logic to update password
-    console.log('Password submitted:', password);
+
+    try {
+      const response = await fetch('/api/user', {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ' + localStorage.getItem("token")
+        },
+        body: JSON.stringify({ password }),
+      });
+
+      if (response.ok) {
+        console.log('Password updated successfully');
+      } else {
+        console.error('Failed to update password');
+      }
+    } catch (error) {
+      console.error('Error updating password:', error);
+    }
   };
 
-  const handleDeleteUser = () => {
-    // Add logic to delete user
-    console.log('User deleted');
+  const handleDeleteUser = async () => {
+    // Add logic to confirm and delete user
+    try {
+      const response = await fetch('/api/user', {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ' + localStorage.getItem("token")
+        },
+      });
+
+      if (response.ok) {
+        console.log('User deleted successfully');
+        // Redirect to login or another page after deletion if needed
+      } else {
+        console.error('Failed to delete user');
+      }
+    } catch (error) {
+      console.error('Error deleting user:', error);
+    }
   };
 
   return (
