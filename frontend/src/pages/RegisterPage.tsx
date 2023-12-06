@@ -26,6 +26,7 @@ const RegisterPage: React.FC = () => {
             ...formData,
             [name]: value
         });
+        console.log(typeof(formData.gender))
     }
 
     const handleSubmit = async (e: React.FormEvent) => {
@@ -43,7 +44,7 @@ const RegisterPage: React.FC = () => {
                     email: formData.email,
                     password: formData.password,
                     dateOfBirth: new Date(formData.dateOfBirth).toISOString().split('T')[0],
-                    isGenderMale: formData.gender === 'male'
+                    genderMale: formData.gender == 'male'
                 }),
             });
 
@@ -62,7 +63,6 @@ const RegisterPage: React.FC = () => {
             console.error('Network error:', error);
         }
     };
-
 
 
 
