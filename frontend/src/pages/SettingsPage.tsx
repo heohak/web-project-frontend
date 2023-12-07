@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import FormContainer from "@/components/FormContainer.tsx";
 import Button from "@/components/Button.tsx";
+import LinkButton from "@/components/LinkButton.tsx";
 
 const SettingsPage: React.FC = () => {
   const [email, setEmail] = useState('');
@@ -111,6 +112,9 @@ const SettingsPage: React.FC = () => {
 
   return (
     <div className="flex flex-col min-h-screen items-center justify-center">
+      <div className="absolute top-0 right-0 m-4">
+        <LinkButton className='bg-fuchsia-300' to="/">Back to main page</LinkButton>
+      </div>
       <FormContainer>
         <p className="text-fuchsia-600 h-fit font-extrabold font-montserrat text-3xl">
             Settings
