@@ -15,7 +15,7 @@ type SortField = keyof User | null;
 const UserTable: React.FC = () => {
     const [users, setUsers] = useState<User[]>([]);
     const [page, setPage] = useState<number>(0);
-    const [size, setSize] = useState<number>(2);
+    const [size] = useState<number>(5);
     const [totalPages, setTotalPages] = useState<number>(0);
     const [sortField, setSortField] = useState<SortField>(null);
     const [sortDirection, setSortDirection] = useState<SortDirection>('none');
@@ -104,7 +104,7 @@ const UserTable: React.FC = () => {
                         <td className="p-2">{user.firstName}</td>
                         <td className="p-2">{user.lastName}</td>
                         <td className="p-2">{user.email}</td>
-                        <td className="p-2">{user.dateOfBirth}</td>
+                        <td className="p-2">{typeof user.dateOfBirth === 'string' ? user.dateOfBirth : user.dateOfBirth.toLocaleDateString()}</td>
                         <td className="p-2">{user.genderMale ? 'Male' : 'Female'}</td>
                     </tr>
                 ))}

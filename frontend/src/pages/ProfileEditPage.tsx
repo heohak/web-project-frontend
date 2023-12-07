@@ -1,5 +1,6 @@
 import FormContainer from "@/components/FormContainer.tsx";
 import Button from "@/components/Button.tsx";
+import LinkButton from "@/components/LinkButton.tsx"
 
 import React, {useEffect, useState} from 'react';
 import {useNavigate} from "react-router-dom";
@@ -124,6 +125,9 @@ const ProfileEditPage: React.FC = () => {
 
     return (
         <div className="flex flex-col min-h-screen items-center justify-center">
+            <div className="absolute top-4 right-4">
+                <LinkButton className="bg-fuchsia-300" to="/">Back to main page</LinkButton>
+            </div>
             <FormContainer>
                 <p className="text-fuchsia-600 h-fit font-extrabold font-montserrat text-2xl">
                     Edit my profile
