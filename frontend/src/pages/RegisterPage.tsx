@@ -26,7 +26,6 @@ const RegisterPage: React.FC = () => {
             ...formData,
             [name]: value
         });
-        console.log(typeof(formData.gender))
     }
 
     const handleSubmit = async (e: React.FormEvent) => {
