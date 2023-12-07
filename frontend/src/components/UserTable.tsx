@@ -79,7 +79,7 @@ const UserTable: React.FC = () => {
                         <td className="p-2">{user.firstName}</td>
                         <td className="p-2">{user.lastName}</td>
                         <td className="p-2">{user.email}</td>
-                        <td className="p-2">{user.dateOfBirth}</td>
+                        <td className="p-2">{String(user.dateOfBirth)}</td>
                         <td className="p-2">{user.genderMale ? 'Male' : 'Female'}</td>
                     </tr>
                 ))}

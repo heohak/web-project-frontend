@@ -8,7 +8,7 @@ import ProfilePreviewPage from "@/pages/ProfilePreviewPage";
 import ProtectedRoute from "@/components/ProtectedRoute.tsx";
 import LogoutPage from "@/pages/LogoutPage.tsx";
 import SettingsPage from "@/pages/SettingsPage";
-import TableView from "@/pages/TableView";
+import TableViewPage from "@/pages/TableViewPage";
 
 const App: React.FC = () => {
   return (
@@ -21,7 +21,7 @@ const App: React.FC = () => {
         <Route path="/profile" element={<ProtectedRoute><ProfilePreviewPage/></ProtectedRoute>}/>
         <Route path="/profile/edit" element={<ProtectedRoute><ProfileEditPage/></ProtectedRoute>}/>
         <Route path="/settings" element={<ProtectedRoute><SettingsPage/></ProtectedRoute>}/>
-        <Route path="/table-view" element={<ProtectedRoute><TableView/></ProtectedRoute>}/>
+        <Route path="/table-view" element={<ProtectedRoute><TableViewPage/></ProtectedRoute>}/>
       </Routes>
     </Router>
   );
