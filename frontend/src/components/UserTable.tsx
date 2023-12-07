@@ -25,7 +25,12 @@ const UserTable: React.FC = () => {
         const fetchUsers = async () => {
             const searchParam = searchTerm ? `&search=${encodeURIComponent(searchTerm)}` : '';
             const response = await fetch(
-                `/api/user/paginated?page=${page}&size=${size}${searchParam}`
+                `/api/user/paginated?page=${page}&size=${size}${searchParam}`,
+                {
+                    headers: {
+                        'Authorization': 'Bearer ' + localStorage.getItem("token")
+                    },
+                }
             );
             const data = await response.json();
             const fetchedUsers = data.content;
