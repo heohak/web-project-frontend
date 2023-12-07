@@ -33,6 +33,7 @@ const BurgerMenu: React.FC<BurgerMenuProps> = ({}) => {
           </button>
           <LinkButton to='/profile/edit' className='flex justify-center w-full py-4 bg-fuchsia-50 hover:bg-fuchsia-200 rounded-none !text-fuchsia-400 text-xl'>Profile</LinkButton>
           <LinkButton to='/settings' className='flex justify-center w-full py-4 bg-fuchsia-50 hover:bg-fuchsia-200 rounded-none !text-fuchsia-400 text-xl'>Settings</LinkButton>
+          <LinkButton to='/table-view' className='flex justify-center w-full py-4 bg-fuchsia-50 hover:bg-fuchsia-200 rounded-none !text-fuchsia-400 text-xl'>User table</LinkButton>
           <LinkButton to='/logout' className='flex justify-center w-full py-4 bg-fuchsia-50 hover:bg-fuchsia-200 rounded-none !text-fuchsia-400 text-xl'>Log out</LinkButton>
         </ul>
       )}
