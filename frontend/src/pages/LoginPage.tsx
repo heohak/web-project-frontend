@@ -61,7 +61,19 @@ const LoginPage: React.FC = () => {
                 const token = await response.json();
                 if (token) {
                     localStorage.setItem("token", token.token);
-                    navigate('/profile/edit');
+
+                    const profileResponse = await fetch('/api/profile', {
+                        method: 'GET',
+                        headers: {'Authorization': 'Bearer ' + localStorage.getItem("token")}
+                    })
+
+                    const profileData = await profileResponse.json();
+
+                    if (profileData.profileActive) {
+                        navigate('/');
+                    } else {
+                        navigate('/profile/edit');
+                    } 
                 }
             } else {
                 // If the login fails, parse the error message and show it in an alert
