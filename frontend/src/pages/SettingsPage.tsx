@@ -45,13 +45,13 @@ const SettingsPage: React.FC = () => {
     e.preventDefault();
 
     try {
-      const response = await fetch('/api/user', {
+      const response = await fetch('/api/user/email', {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
           'Authorization': 'Bearer ' + localStorage.getItem("token")
         },
-        body: JSON.stringify({ email }),
+        body: JSON.stringify({ "newEmail": email }),
       });
 
       if (response.ok) {
@@ -74,7 +74,7 @@ const SettingsPage: React.FC = () => {
           'Content-Type': 'application/json',
           'Authorization': 'Bearer ' + localStorage.getItem("token")
         },
-        body: JSON.stringify({ password }),
+        body: JSON.stringify({ "newPassword": password }),
       });
 
       if (response.ok) {
