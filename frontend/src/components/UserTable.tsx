@@ -2,35 +2,63 @@
 import React, { useState, useEffect } from 'react';
 
 interface User {
+    id: number;
     firstName: string;
     lastName: string;
     email: string;
-    passwordHash: string;
     dateOfBirth: Date | string;
     genderMale: boolean;
 }
+
+type SortDirection = 'asc' | 'desc' | 'none';
+type SortField = keyof User | null;
 
 const UserTable: React.FC = () => {
     const [users, setUsers] = useState<User[]>([]);
     const [page, setPage] = useState<number>(0);
     const [size, setSize] = useState<number>(2);
-    const [sortBy, setSortBy] = useState<string>('id');
-    const [sortDirection, setSortDirection] = useState<'asc' | 'desc'>('asc');
     const [totalPages, setTotalPages] = useState<number>(0);
+    const [sortField, setSortField] = useState<SortField>(null);
+    const [sortDirection, setSortDirection] = useState<SortDirection>('none');
 
     useEffect(() => {
-        fetch(`/api/user/paginated?page=${page}&size=${size}&sortBy=${sortBy}&sortDir=${sortDirection}`)
+        fetch(`/api/user/paginated?page=${page}&size=${size}`)
             .then(response => response.json())
             .then(data => {
                 setUsers(data.content);
                 setTotalPages(data.totalPages);
             })
             .catch(error => console.error('Error fetching data: ', error));
-    }, [page, size, sortBy, sortDirection]);
+    }, [page, size]);
 
-    const handleSort = (field: string) => {
-        setSortBy(field);
-        setSortDirection(sortDirection === 'asc' ? 'desc' : 'asc');
+    const sortData = (field: SortField) => {
+        if (field === sortField) {
+            setSortDirection(prevDirection =>
+                prevDirection === 'asc' ? 'desc' : prevDirection === 'desc' ? 'none' : 'asc'
+            );
+        } else {
+            setSortField(field);
+            setSortDirection('asc');
+        }
+    };
+
+    useEffect(() => {
+        if (sortField !== null) {
+            const sortedData = [...users].sort((a, b) => {
+                if (a[sortField] < b[sortField]) return sortDirection === 'asc' ? -1 : sortDirection === 'desc' ? 1 : 0;
+                if (a[sortField] > b[sortField]) return sortDirection === 'asc' ? 1 : sortDirection === 'desc' ? -1 : 0;
+                return 0;
+            });
+            setUsers(sortedData);
+        }
+    }, [sortField, sortDirection]);
+
+    const renderSortArrow = (field: keyof User) => {
+        return (
+            <span className={sortField === field ? 'font-bold' : ''}>
+                {sortDirection === 'asc' ? '↑' : '↓'}
+            </span>
+        );
     };
 
     return (
@@ -38,9 +66,9 @@ const UserTable: React.FC = () => {
             <table className="min-w-full leading-normal">
                 <thead>
                 <tr className="text-fuchsia-600 font-bold">
-                    <th className="cursor-pointer" onClick={() => handleSort('firstName')}>First Name</th>
-                    <th className="cursor-pointer" onClick={() => handleSort('lastName')}>Last Name</th>
-                    <th className="cursor-pointer" onClick={() => handleSort('email')}>Email</th>
+                    <th className="cursor-pointer" onClick={() => sortData('firstName')}>First Name {renderSortArrow('firstName')}</th>
+                    <th className="cursor-pointer" onClick={() => sortData('lastName')}>Last Name {renderSortArrow('lastName')}</th>
+                    <th className="cursor-pointer" onClick={() => sortData('email')}>Email {renderSortArrow('email')}</th>
                     <th>Date of Birth</th>
                     <th>Gender</th>
                 </tr>
@@ -62,7 +90,7 @@ const UserTable: React.FC = () => {
                     <button
                         key={i}
                         onClick={() => setPage(i)}
-                        className="m-1 bg-fuchsia-300 rounded px-3 py-1 hover:bg-fuchsia-400"
+                        className="m-1 bg-fuchsia-300 rounded px-3 py-1 hover:bg-fuchsia-400 focus:outline-none focus:ring-2 focus:ring-fuchsia-300 focus:ring-opacity-50"
                     >
                         {i + 1}
                     </button>
