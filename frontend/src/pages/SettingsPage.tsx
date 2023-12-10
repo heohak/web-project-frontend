@@ -2,14 +2,17 @@ import React, { useState } from 'react';
 import FormContainer from "@/components/FormContainer.tsx";
 import Button from "@/components/Button.tsx";
 import LinkButton from "@/components/LinkButton.tsx";
+import { useNavigate } from "react-router-dom";
 
 const SettingsPage: React.FC = () => {
+  const navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [dob, setDOB] = useState('');
   const [gender, setGender] = useState('');
+  const [notification, setNotification] = useState('');
 
   const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(e.target.value);
@@ -35,6 +38,14 @@ const SettingsPage: React.FC = () => {
     setGender(e.target.value);
   };
 
+  const showNotification = (message: string) => {
+    setNotification(message);
+
+    setTimeout(() => {
+      setNotification('');
+    }, 5000);
+  };
+
   const handleEmailSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
@@ -50,6 +61,7 @@ const SettingsPage: React.FC = () => {
 
       if (response.ok) {
         console.log('Email updated successfully');
+        showNotification('Email updated successfully');
       } else {
         console.error('Failed to update email');
       }
@@ -73,6 +85,7 @@ const SettingsPage: React.FC = () => {
 
       if (response.ok) {
         console.log('Password updated successfully');
+        showNotification('Password updated successfully');
       } else {
         console.error('Failed to update password');
       }
@@ -96,6 +109,7 @@ const SettingsPage: React.FC = () => {
 
       if (response.ok) {
         console.log('First name updated successfully');
+        showNotification('First name updated successfully');
       } else {
         console.error('Failed to update first name');
       }
@@ -119,6 +133,7 @@ const SettingsPage: React.FC = () => {
 
       if (response.ok) {
         console.log('Last name updated successfully');
+        showNotification('Last name updated successfully');
       } else {
         console.error('Failed to update last name');
       }
@@ -142,6 +157,7 @@ const SettingsPage: React.FC = () => {
 
       if (response.ok) {
         console.log('Date of birth updated successfully');
+        showNotification('Date of birth updated successfully');
       } else {
         console.error('Failed to update date of birth');
       }
@@ -165,6 +181,7 @@ const SettingsPage: React.FC = () => {
 
       if (response.ok) {
         console.log('Gender updated successfully');
+        showNotification('Gender updated successfully');
       } else {
         console.error('Failed to update gender');
       }
@@ -185,7 +202,7 @@ const SettingsPage: React.FC = () => {
 
       if (response.ok) {
         console.log('User deleted successfully');
-        // Redirect to login or another page after deletion if needed
+        navigate("/logout")
       } else {
         console.error('Failed to delete user');
       }
@@ -317,6 +334,11 @@ const SettingsPage: React.FC = () => {
                 Delete
             </button>
         </div>
+        {notification && (
+          <div className="mt-4 bg-green-500 text-white font-semibold rounded-md p-3">
+            <p>{notification}</p>
+          </div>
+          )}
       </FormContainer>
     </div>
   );
