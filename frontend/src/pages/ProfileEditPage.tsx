@@ -28,6 +28,9 @@ const ProfileEditPage: React.FC = () => {
               if (response.ok) {
                 const profile = await response.json();
                 setProfileActive(profile.profileActive);
+                setProfilePicture(profile.picture);
+                setBio(profile.bio);
+                setGenderPreferenceMale(profile.genderPreferenceMale ? "male" : "female");
               } else {
                 console.error('Failed to fetch profile details');
               }
