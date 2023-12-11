@@ -191,6 +191,9 @@ const SettingsPage: React.FC = () => {
   };
 
   const handleDeleteUser = async () => {
+    const ok = confirm("Are you sure you want to delete your account? Your profile and matches will be lost.");
+    if (!ok) return;
+
     try {
       const response = await fetch('/api/user', {
         method: 'DELETE',
@@ -204,6 +207,10 @@ const SettingsPage: React.FC = () => {
         console.log('User deleted successfully');
         navigate("/logout")
       } else {
+        const err = await response.json();
+        if (err.message) {
+          alert(err.message);
+        }
         console.error('Failed to delete user');
       }
     } catch (error) {
