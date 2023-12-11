@@ -21,3 +21,9 @@ Run `npm install` in the project directory to install all the required dependenc
 
 Run `npm run dev` in the project directory.
 <kbd>Ctrl</kbd> + <kbd>Click</kbd> on the localhost link.
+
+
+### Authors:
+- Robin Nook
+- Uku Sõrmus
+- Henry Ohak
