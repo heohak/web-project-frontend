@@ -15,7 +15,7 @@ const SwipeContainer: React.FC<SwipeContainerProps> = ({}) => {
     try {
       const response = await fetch(`/api/profile/random`, {
         headers: {
-          'Authorization': 'Bearer ' + localStorage.getItem("token")
+          'Authorization': 'Bearer ' + localStorage.getItem("token"),
         },
       });
 
@@ -55,7 +55,8 @@ const SwipeContainer: React.FC<SwipeContainerProps> = ({}) => {
       const response = await fetch('/api/match', {
         method: 'POST',
         headers: {
-          'Authorization': 'Bearer ' + localStorage.getItem("token")
+          'Authorization': 'Bearer ' + localStorage.getItem("token"),
+          'Content-Type': 'application/json'
         },
         body: JSON.stringify({
           id: swipeContainerData?.id,
